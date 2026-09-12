@@ -1,0 +1,56 @@
+{
+  "name": "notice-clock",
+  "version": "1.0.0",
+  "description": "A cool floating neon digital clock widget for macOS",
+  "main": "main.js",
+  "scripts": {
+    "dev": "concurrently -k \"vite\" \"VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "vite build",
+    "start": "npm run build && electron .",
+    "pack": "npm run helper && npm run build && electron-builder --mac dir",
+    "dist": "npm run build && electron-builder --mac"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "com.local.noticeclock",
+    "productName": "my-clock",
+    "files": [
+      "main.js",
+      "preload.js",
+      "tasks.js",
+      "dist/renderer/**/*",
+      "icon.icns"
+    ],
+    "extraResources": [
+      {
+        "from": "EventKitHelper",
+        "to": "EventKitHelper"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.utilities",
+      "icon": "icon.icns",
+      "identity": null,
+      "target": [
+        "dir"
+      ],
+      "extendInfo": {
+        "NSCalendarsUsageDescription": "悬浮时钟需要读取你的日历事件，以显示今天的日程。",
+        "NSCalendarsFullAccessUsageDescription": "悬浮时钟需要读取你的日历事件，以显示今天的日程。",
+        "NSRemindersUsageDescription": "悬浮时钟需要读取你的提醒事项，以显示今天待完成的事项。",
+        "NSRemindersFullAccessUsageDescription": "悬浮时钟需要读取你的提醒事项，以显示今天待完成的事项。"
+      }
+    }
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.5",
+    "concurrently": "^9.2.4",
+    "electron": "^43.4.0",
+    "electron-builder": "^26.15.3",
+    "vite": "^8.2.1"
+  },
+  "dependencies": {
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  }
+}
